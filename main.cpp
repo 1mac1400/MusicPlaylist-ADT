@@ -13,6 +13,7 @@
  Resources/AI Tools used:
  */
 
+#include "MusicPlaylist.h"
 #include <iostream>
 
 int main()
