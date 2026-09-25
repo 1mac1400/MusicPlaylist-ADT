@@ -131,7 +131,7 @@ std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 
 void MusicPlaylist::doubleCapacity()
 {
-    int newCapacity = capacity * 2; //temp holder for double capacity
+    int newCapacity = capacity * 2; 
     
     std::string* temp; //will point to the address of the new doubled array list
     temp = new std::string[newCapacity];
@@ -144,6 +144,6 @@ void MusicPlaylist::doubleCapacity()
     delete[] playlist; //deletes the initial array list
     
     playlist = temp; //playlist now points to the address of the new doubled array list
-    capacity = newCapacity; //update capacity to doubled capacity
+    capacity = newCapacity;
     
 }
