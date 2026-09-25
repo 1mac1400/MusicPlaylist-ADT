@@ -111,7 +111,7 @@ MusicPlaylist& MusicPlaylist::operator=(MusicPlaylist&& otherMusicPlaylist)
 MusicPlaylist::~MusicPlaylist()
 {
     delete[] playlist;
-    playlist = nullptr;
+    playlist = nullptr; //prevent dangling point 
     
 }
 
@@ -126,4 +126,24 @@ std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
     out << ")";
     
     return out;
+}
+
+
+void MusicPlaylist::doubleCapacity()
+{
+    int newCapacity = capacity * 2; //temp holder for double capacity
+    
+    std::string* temp; //will point to the address of the new doubled array list
+    temp = new std::string[newCapacity];
+    
+    for (int i = 0; i < size; i++)
+    {
+        temp[i] = playlist[i]; //copy elements to the doubled array list
+    }
+    
+    delete[] playlist; //deletes the initial array list
+    
+    playlist = temp; //playlist now points to the address of the new doubled array list
+    capacity = newCapacity; //update capacity to doubled capacity
+    
 }
