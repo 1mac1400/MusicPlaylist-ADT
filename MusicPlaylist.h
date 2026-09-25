@@ -23,13 +23,15 @@ class MusicPlaylist
     public:
     
     MusicPlaylist(); //constructor
-    MusicPlaylist(const MuscPlaylist& otherMusicPlaylist); //copy constructor
+    MusicPlaylist(const MusicPlaylist& otherMusicPlaylist); //copy constructor
     MusicPlaylist& operator=(const MusicPlaylist& otherMusicPlaylist); //overloaded assignment operator
-    MusicPlaylist(MusicPlaylist&& otherMusicPlaylist) //move constructor
-    MusicPlaylist& operator=(const MusicPlaylist&& otherMusicPlaylist); //move assignemnt operator
+    MusicPlaylist(MusicPlaylist&& otherMusicPlaylist); //move constructor
+    MusicPlaylist& operator=(MusicPlaylist&& otherMusicPlaylist); //move assignemnt operator
     
     ~MusicPlaylist(); //destructor
     
+    
+    friend std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist); //overloaded isnertion operator
     
     
     
