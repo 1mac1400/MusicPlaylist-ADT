@@ -18,15 +18,18 @@
 #define MUSICPLAYLIST_H
 #include <iostream>
 
+using namespace std;
+
+template<class ItemType>
 class MusicPlaylist
 {
     public:
     
     MusicPlaylist(); //constructor
-    MusicPlaylist(const MusicPlaylist& otherMusicPlaylist); //copy constructor
-    MusicPlaylist& operator=(const MusicPlaylist& otherMusicPlaylist); //overloaded assignment operator
-    MusicPlaylist(MusicPlaylist&& otherMusicPlaylist); //move constructor
-    MusicPlaylist& operator=(MusicPlaylist&& otherMusicPlaylist); //move assignemnt operator
+    MusicPlaylist(const MusicPlaylist<ItemType>& otherMusicPlaylist); //copy constructor
+    MusicPlaylist& operator=(const MusicPlaylist<ItemType>& otherMusicPlaylist); //overloaded assignment operator
+    MusicPlaylist(MusicPlaylist<ItemType>&& otherMusicPlaylist) //move constructor
+    MusicPlaylist& operator=(const MusicPlaylist<ItemType>&& otherMusicPlaylist); //move assignemnt operator
     
     ~MusicPlaylist(); //destructor
     
@@ -39,11 +42,9 @@ class MusicPlaylist
     
     
     private:
-    std::string* playlist; //points to the dynamically allocated array
+    ItemType* playlist; //points to the dynamically allocated array
     int capacity; //How many elements the array can currently hold
-    int size; //total # of elements stored
-    
-    void doubleCapacity(); //HELPER FUNCTION (doubles the capacity whenever array is full)
+    int numOfSongs; //total # of elements stored
 };
 
 
