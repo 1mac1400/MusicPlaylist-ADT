@@ -115,6 +115,13 @@ MusicPlaylist::~MusicPlaylist()
     
 }
 
+void MusicPlaylist::append(std::string song)
+{
+
+ if(
+ 
+}
+
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
     out << "(";
