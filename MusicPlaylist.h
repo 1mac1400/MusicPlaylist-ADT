@@ -35,7 +35,8 @@ class MusicPlaylist
     
     
     void append(const std::string& song);
-    
+
+    void insert(const std::string& song, const int& idx);
     
     
     private:
