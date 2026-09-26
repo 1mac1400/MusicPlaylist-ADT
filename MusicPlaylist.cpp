@@ -115,7 +115,7 @@ MusicPlaylist::~MusicPlaylist()
     
 }
 
-void MusicPlaylist::append( const std::string& song)
+void MusicPlaylist::append(const std::string& song)
 {
  if(size==capacity)
  {
