@@ -125,6 +125,35 @@ void MusicPlaylist::append(const std::string& song)
  size++;
 }
 
+void MusicPlaylist::insert(const std::string& song, int idx)
+{
+	if (idx >= 0 and idx <= size)
+	{
+		//resize the array
+		if (size == capacity)
+		{
+			doubleCapacity();
+		}
+		for (int i = size; i >idx; i--)
+		{
+			if (i <= idx)
+			{
+				continue;
+			}
+			else if (i > idx)
+			{
+				playlist[i] = playlist[i-1];
+			}
+		}
+		playlist[idx] = song;
+	}
+	else {
+		std::cout << "ERROR: Invalid Index \n\n";
+		return;
+	}
+	size++;
+}
+
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
     out << "(";
