@@ -34,7 +34,7 @@ class MusicPlaylist
     friend std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist); //overloaded isnertion operator
     
     
-    void append(std::string song);
+    void append(const std::string& song);
     
     
     
