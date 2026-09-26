@@ -115,11 +115,14 @@ MusicPlaylist::~MusicPlaylist()
     
 }
 
-void MusicPlaylist::append(std::string song)
+void MusicPlaylist::append( const std::string& song)
 {
-
- if(
- 
+ if(size==capacity)
+ {
+  doubleCapacity();
+ }
+ playList[size]=song;
+ size++;
 }
 
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
