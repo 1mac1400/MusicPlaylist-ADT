@@ -127,24 +127,21 @@ void MusicPlaylist::append(const std::string& song)
 
 void MusicPlaylist::insert(const std::string& song, int idx)
 {
+	//checking index bounds
 	if (idx >= 0 and idx <= size)
 	{
-		//resize the array
+		//resize the array if needed
 		if (size == capacity)
 		{
 			doubleCapacity();
 		}
+		//shift elements to the right but start at last element to make sure
+		//the elements get copied in the correct order without overriding a value before it was shifted
 		for (int i = size; i >idx; i--)
 		{
-			if (i <= idx)
-			{
-				continue;
-			}
-			else if (i > idx)
-			{
-				playlist[i] = playlist[i-1];
-			}
+			playlist[i] = playlist[i-1];
 		}
+		//inserting value at correct index
 		playlist[idx] = song;
 	}
 	else {
