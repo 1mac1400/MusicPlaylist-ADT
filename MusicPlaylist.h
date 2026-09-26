@@ -23,14 +23,18 @@ class MusicPlaylist
     public:
     
     MusicPlaylist(); //constructor
-    MusicPlaylist(const MuscPlaylist& otherMusicPlaylist); //copy constructor
+    MusicPlaylist(const MusicPlaylist& otherMusicPlaylist); //copy constructor
     MusicPlaylist& operator=(const MusicPlaylist& otherMusicPlaylist); //overloaded assignment operator
-    MusicPlaylist(MusicPlaylist&& otherMusicPlaylist) //move constructor
-    MusicPlaylist& operator=(const MusicPlaylist&& otherMusicPlaylist); //move assignemnt operator
+    MusicPlaylist(MusicPlaylist&& otherMusicPlaylist); //move constructor
+    MusicPlaylist& operator=(MusicPlaylist&& otherMusicPlaylist); //move assignemnt operator
     
     ~MusicPlaylist(); //destructor
     
     
+    friend std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist); //overloaded isnertion operator
+    
+    
+    void append(std::string song);
     
     
     
@@ -38,6 +42,8 @@ class MusicPlaylist
     std::string* playlist; //points to the dynamically allocated array
     int capacity; //How many elements the array can currently hold
     int size; //total # of elements stored
+    
+    void doubleCapacity(); //HELPER FUNCTION (doubles the capacity whenever array is full)
 };
 
 
