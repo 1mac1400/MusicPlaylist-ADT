@@ -149,6 +149,11 @@ bool MusicPlaylist::isEmpty() const
     return size==0;
 }
 
+void MusicPlaylist::clear()
+{
+	size=0;
+}
+
 void MusicPlaylist::set(const std::string& song, int idx)
 {
 		//checking index bounds
