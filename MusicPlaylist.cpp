@@ -126,7 +126,7 @@ void MusicPlaylist::append(const std::string& song)
 }
 
 
-string MusicPlaylist::get(int idx)
+string MusicPlaylist::get(int idx) const
 {
 		//checking index bounds
 	if (idx >= 0 && idx < size)
