@@ -128,7 +128,7 @@ void MusicPlaylist::append(const std::string& song)
 void MusicPlaylist::insert(const std::string& song, int idx)
 {
 	//checking index bounds
-	if (idx >= 0 and idx <= size)
+	if (idx >= 0 && idx <= size)
 	{
 		//resize the array if needed
 		if (size == capacity)
@@ -155,7 +155,7 @@ void MusicPlaylist::insert(const std::string& song, int idx)
   void MusicPlaylist::remove(int idx)
 {
 	//checking index bounds
-	if (idx >= 0 and idx < size)
+	if (idx >= 0 && idx < size)
 	{
 		//shift elements to the left starting  from the idx location
 		//note for the edge cases when we are removing the only element or the last element,
