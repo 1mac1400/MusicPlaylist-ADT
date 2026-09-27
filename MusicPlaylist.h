@@ -40,7 +40,7 @@ class MusicPlaylist
 
     void remove(const std::string& song, int idx);
 
-    string get(int idx);
+    string get(int idx) const;
 
     
     
