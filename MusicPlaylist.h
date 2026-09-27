@@ -46,6 +46,8 @@ class MusicPlaylist
     int getSize() const;
     bool isEmpty() const;
 
+    void clear();
+
     
     
     private:
