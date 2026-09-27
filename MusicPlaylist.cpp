@@ -139,6 +139,19 @@ string MusicPlaylist::get(int idx) const
 	}
 }
 
+void MusicPlaylist::set(const std::string& song, int idx)
+{
+		//checking index bounds
+	if (idx >= 0 && idx < size)
+	{
+	playlist[idx]=song;
+	}else
+	{
+		std::cout << "ERROR: Invalid Index \n\n";
+		exit(1);
+	}
+}
+
 
 void MusicPlaylist::insert(const std::string& song, int idx)
 {
