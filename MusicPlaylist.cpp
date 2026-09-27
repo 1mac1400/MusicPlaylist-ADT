@@ -139,6 +139,11 @@ string MusicPlaylist::get(int idx) const
 	}
 }
 
+int MusicPlaylist::getSize() const
+{
+	return size;
+}
+
 void MusicPlaylist::set(const std::string& song, int idx)
 {
 		//checking index bounds
