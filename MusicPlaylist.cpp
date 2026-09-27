@@ -151,6 +151,32 @@ void MusicPlaylist::insert(const std::string& song, int idx)
 	size++;
 }
 
+
+  void MusicPlaylist::remove(int idx)
+{
+	//checking index bounds
+	if (idx >= 0 and idx < size)
+	{
+		//shift elements to the left starting  from the idx location
+		//note for the edge cases when we are removing the only element or the last element,
+		//the loop won't run but size data memeber will still be updated in this function
+		//which will make the element no longer accessible and essentially removed from the list
+		//as all other operations involving indexing are controlled by the 'size' variable.
+		//the element will still sit in memory but it will be overwritten next time the list grows
+		//and size updates.
+		for (int i = idx; i <size-1; i++)
+		{
+			playlist[i] = playlist[i+1];
+		}
+	}
+	else {
+		std::cout << "ERROR: Invalid Index \n\n";
+		return;
+	}
+	size--;
+}
+
+
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
     out << "(";
