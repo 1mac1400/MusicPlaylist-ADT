@@ -44,6 +44,7 @@ class MusicPlaylist
     void set(const std::string& song, int idx);
 
     int getSize() const;
+    bool isEmpty() const;
 
     
     
