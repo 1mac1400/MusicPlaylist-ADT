@@ -87,6 +87,8 @@ MusicPlaylist::MusicPlaylist(MusicPlaylist&& otherMusicPlaylist)
     
     playlist = otherMusicPlaylist.playlist; //transfers ownership of the array from otherMusicPlaylist to playlist
     otherMusicPlaylist.playlist = nullptr; //prevents accidential deletion of playlist array
+    otherMusicPlaylist.size = 0;
+    otherMusicPlaylist.capacity = 0;
     
 }
 
@@ -103,6 +105,8 @@ MusicPlaylist& MusicPlaylist::operator=(MusicPlaylist&& otherMusicPlaylist)
     
     playlist = otherMusicPlaylist.playlist; //transfers ownership of the array from otherMusicPlaylist to playlist
     otherMusicPlaylist.playlist = nullptr; //prevents accidential deletion of playlist array
+    otherMusicPlaylist.size = 0;
+    otherMusicPlaylist.capacity = 0;
     
     return *this;
 }
@@ -111,13 +115,118 @@ MusicPlaylist& MusicPlaylist::operator=(MusicPlaylist&& otherMusicPlaylist)
 MusicPlaylist::~MusicPlaylist()
 {
     delete[] playlist;
-    playlist = nullptr; //prevent dangling point 
+    playlist = nullptr; //prevent dangling point
     
 }
 
+void MusicPlaylist::append(const std::string& song)
+{
+ if(size==capacity)
+ {
+  doubleCapacity();
+ }
+ playlist[size]=song;
+ size++;
+}
+
+
+std::string MusicPlaylist::get(int idx) const
+{
+        //checking index bounds
+    if (idx >= 0 && idx < size)
+    {
+    return playlist[idx];
+    }else
+    {
+        std::cout << "ERROR: Invalid Index \n\n";
+        exit(1);
+    }
+}
+
+int MusicPlaylist::getSize() const
+{
+    return size;
+}
+
+bool MusicPlaylist::isEmpty() const
+{
+    return size==0;
+}
+
+void MusicPlaylist::clear()
+{
+    size=0;
+}
+
+void MusicPlaylist::set(const std::string& song, int idx)
+{
+        //checking index bounds
+    if (idx >= 0 && idx < size)
+    {
+    playlist[idx]=song;
+    }else
+    {
+        std::cout << "ERROR: Invalid Index \n\n";
+        exit(1);
+    }
+}
+
+
+void MusicPlaylist::insert(const std::string& song, int idx)
+{
+    //checking index bounds
+    if (idx >= 0 && idx <= size)
+    {
+        //resize the array if needed
+        if (size == capacity)
+        {
+            doubleCapacity();
+        }
+        //shift elements to the right but start at last element to make sure
+        //the elements get copied in the correct order without overriding a value before it was shifted
+        for (int i = size; i >idx; i--)
+        {
+            playlist[i] = playlist[i-1];
+        }
+        //inserting value at correct index
+        playlist[idx] = song;
+    }
+    else {
+        std::cout << "ERROR: Invalid Index \n\n";
+        return;
+    }
+    size++;
+}
+
+
+void MusicPlaylist::remove(int idx)
+{
+    //checking index bounds
+    if (idx >= 0 && idx < size)
+    {
+        //shift elements to the left starting  from the idx location
+        //note for the edge cases when we are removing the only element or the last element,
+        //the loop won't run but size data memeber will still be updated in this function
+        //which will make the element no longer accessible and essentially removed from the list
+        //as all other operations involving indexing are controlled by the 'size' variable.
+        //the element will still sit in memory but it will be overwritten next time the list grows
+        //and size updates.
+        for (int i = idx; i <size-1; i++)
+        {
+            playlist[i] = playlist[i+1];
+        }
+    }
+    else {
+        std::cout << "ERROR: Invalid Index \n\n";
+        return;
+    }
+    size--;
+}
+
+
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
-    out << "(";
+    out << "( ";
     for (int i = 0; i < printPlaylist.size; i++)
     {
         out << printPlaylist.playlist[i] << " "; //prints out each song in playlist
@@ -131,7 +240,7 @@ std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 
 void MusicPlaylist::doubleCapacity()
 {
-    int newCapacity = capacity * 2; 
+    int newCapacity = capacity * 2;
     
     std::string* temp; //will point to the address of the new doubled array list
     temp = new std::string[newCapacity];
