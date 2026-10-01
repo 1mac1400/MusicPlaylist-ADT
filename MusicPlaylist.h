@@ -34,8 +34,22 @@ class MusicPlaylist
     friend std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist); //overloaded isnertion operator
     
     
-    void append(std::string song);
+    void append(const std::string& song); //adds  new element in array at next avaliable space
+
+    void insert(const std::string& song, int idx); //add new element at a specific index
+
+    void remove(int idx); //remove a element at a specific index
+
+    std::string get(int idx) const; //Returns element at index
     
+    void set(const std::string& song, int idx); //
+
+    int getSize() const; //Returns size/Number of elements in list
+    
+    bool isEmpty() const; //Returns true if empty false if not
+    
+    void clear(); //clears array by setting size to 0
+
     
     
     private:
