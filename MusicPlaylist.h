@@ -42,7 +42,7 @@ class MusicPlaylist
 
     std::string get(int idx) const; //Returns element at index
     
-    void set(const std::string& song, int idx); //
+    void set(const std::string& song, int idx); //replaces element at index
 
     int getSize() const; //Returns size/Number of elements in list
     
