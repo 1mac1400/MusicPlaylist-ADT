@@ -21,7 +21,7 @@ MusicPlaylist::MusicPlaylist()
     capacity = 10; //default number of spaces avaliable
     size = 0;
     playlist = new std::string[capacity];
-    
+
     if (playlist == nullptr)
     {
         std::cout << "ERROR: Memory Allocation Failed In Constructor\n\n";
@@ -34,21 +34,21 @@ MusicPlaylist::MusicPlaylist(const MusicPlaylist& otherMusicPlaylist)
 {
     capacity = otherMusicPlaylist.capacity;
     size = otherMusicPlaylist.size;
-    
+
     playlist = new std::string[capacity];
-    
+
     if (playlist == nullptr)
     {
         std::cout << "ERROR: Memory Allocation Failed In copy constructor\n\n";
         exit(1);
     }
-    
+
     for (int i = 0; i < capacity; i++)
     {
         playlist[i] = otherMusicPlaylist.playlist[i]; //assigns elements to the new playlist
     }
-    
-    
+
+
 }
 
 MusicPlaylist& MusicPlaylist::operator=(const MusicPlaylist& otherMusicPlaylist)
@@ -57,37 +57,39 @@ MusicPlaylist& MusicPlaylist::operator=(const MusicPlaylist& otherMusicPlaylist)
     {
         return *this;
     }
-    
+
     delete[] playlist;
-    
+
     size = otherMusicPlaylist.size;
     capacity = otherMusicPlaylist.capacity;
-    
+
     playlist = new std::string[capacity];
-    
+
     if (playlist == nullptr)
     {
         std::cout << "ERROR: Memory Allocation Failed In overloaded assignment operator\n\n";
         exit(1);
     }
-    
+
     for (int i = 0; i < capacity; i++)
     {
         playlist[i] = otherMusicPlaylist.playlist[i]; //assigns elements to the new playlist
     }
-    
+
     return *this;
-    
+
 }
 
 MusicPlaylist::MusicPlaylist(MusicPlaylist&& otherMusicPlaylist)
 {
     capacity = otherMusicPlaylist.capacity;
     size = otherMusicPlaylist.size;
-    
+
     playlist = otherMusicPlaylist.playlist; //transfers ownership of the array from otherMusicPlaylist to playlist
     otherMusicPlaylist.playlist = nullptr; //prevents accidential deletion of playlist array
-    
+    otherMusicPlaylist.capacity = 0;
+    otherMusicPlaylist.size = 0;
+
 }
 
 MusicPlaylist& MusicPlaylist::operator=(MusicPlaylist&& otherMusicPlaylist)
@@ -96,14 +98,16 @@ MusicPlaylist& MusicPlaylist::operator=(MusicPlaylist&& otherMusicPlaylist)
     {
         return *this;
     }
-    
+
     delete[] playlist;
     capacity = otherMusicPlaylist.capacity;
     size = otherMusicPlaylist.size;
-    
+
     playlist = otherMusicPlaylist.playlist; //transfers ownership of the array from otherMusicPlaylist to playlist
     otherMusicPlaylist.playlist = nullptr; //prevents accidential deletion of playlist array
-    
+    otherMusicPlaylist.capacity = 0;
+    otherMusicPlaylist.size = 0;
+
     return *this;
 }
 
@@ -112,143 +116,164 @@ MusicPlaylist::~MusicPlaylist()
 {
     delete[] playlist;
     playlist = nullptr; //prevent dangling point 
-    
+
 }
 
 void MusicPlaylist::append(const std::string& song)
 {
- if(size==capacity)
- {
-  doubleCapacity();
- }
- playList[size]=song;
- size++;
+    if (size == capacity)
+    {
+        doubleCapacity();
+    }
+    playlist[size] = song;
+    size++;
 }
 
 
 string MusicPlaylist::get(int idx) const
 {
-		//checking index bounds
-	if (idx >= 0 && idx < size)
-	{
-	return playlist[idx];
-	}else
-	{
-		std::cout << "ERROR: Invalid Index \n\n";
-		exit(1);
-	}
+    //checking index bounds
+    if (idx >= 0 && idx < size)
+    {
+        return playlist[idx];
+    }
+    else
+    {
+        std::cout << "ERROR: Invalid Index \n\n";
+        //exit(1);
+        return "INVALID INDEX ERROR";
+    }
+
 }
+
+
+
+
 
 int MusicPlaylist::getSize() const
 {
-	return size;
+    return size;
 }
 
 bool MusicPlaylist::isEmpty() const
 {
-    return size==0;
+    if (size == 0)
+    {
+        cout << "\nPLAY LIST IS EMPTY";
+    }
+ 
+    return size == 0;
 }
 
 void MusicPlaylist::clear()
 {
-	size=0;
+    cout << "\nPLAY LIST HAS BEEN CLEARED\n";
+    size = 0;
 }
 
 void MusicPlaylist::set(const std::string& song, int idx)
 {
-		//checking index bounds
-	if (idx >= 0 && idx < size)
-	{
-	playlist[idx]=song;
-	}else
-	{
-		std::cout << "ERROR: Invalid Index \n\n";
-		exit(1);
-	}
+    if (idx >= 0 && idx < size)
+    {
+        playlist[idx] = song;
+    }
+    else {
+    std:cout << "ERROR: Invalid Index \n\n";
+    }
 }
 
 
 void MusicPlaylist::insert(const std::string& song, int idx)
 {
-	//checking index bounds
-	if (idx >= 0 && idx <= size)
-	{
-		//resize the array if needed
-		if (size == capacity)
-		{
-			doubleCapacity();
-		}
-		//shift elements to the right but start at last element to make sure
-		//the elements get copied in the correct order without overriding a value before it was shifted
-		for (int i = size; i >idx; i--)
-		{
-			playlist[i] = playlist[i-1];
-		}
-		//inserting value at correct index
-		playlist[idx] = song;
-	}
-	else {
-		std::cout << "ERROR: Invalid Index \n\n";
-		return;
-	}
-	size++;
+    //checking index bounds
+    if (idx >= 0 && idx <= size)
+    {
+        //resize the array if needed
+        if (size == capacity)
+        {
+            doubleCapacity();
+        }
+        //shift elements to the right but start at last element to make sure
+        //the elements get copied in the correct order without overriding a value before it was shifted
+        for (int i = size; i > idx; i--)
+        {
+            playlist[i] = playlist[i - 1];
+        }
+        //inserting value at correct index
+        playlist[idx] = song;
+    }
+    else {
+        std::cout << "ERROR: Invalid Index \n\n";
+        return;
+    }
+    size++;
 }
 
 
-  void MusicPlaylist::remove(int idx)
+
+void MusicPlaylist::remove(int idx)
 {
-	//checking index bounds
-	if (idx >= 0 && idx < size)
-	{
-		//shift elements to the left starting  from the idx location
-		//note for the edge cases when we are removing the only element or the last element,
-		//the loop won't run but size data memeber will still be updated in this function
-		//which will make the element no longer accessible and essentially removed from the list
-		//as all other operations involving indexing are controlled by the 'size' variable.
-		//the element will still sit in memory but it will be overwritten next time the list grows
-		//and size updates.
-		for (int i = idx; i <size-1; i++)
-		{
-			playlist[i] = playlist[i+1];
-		}
-	}
-	else {
-		std::cout << "ERROR: Invalid Index \n\n";
-		return;
-	}
-	size--;
+    //checking index bounds
+    if (idx >= 0 && idx < size)
+    {
+        //shift elements to the left starting  from the idx location
+        //note for the edge cases when we are removing the only element or the last element,
+        //the loop won't run but size data memeber will still be updated in this function
+        //which will make the element no longer accessible and essentially removed from the list
+        //as all other operations involving indexing are controlled by the 'size' variable.
+        //the element will still sit in memory but it will be overwritten next time the list grows
+        //and size updates.
+        for (int i = idx; i < size - 1; i++)
+        {
+            playlist[i] = playlist[i + 1];
+        }
+    }
+    else {
+        std::cout << "ERROR: Invalid Index \n\n";
+        return;
+    }
+    size--;
 }
 
 
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
-    out << "(";
+    if (printPlaylist.isEmpty())
+    {
+        out << "\nADD SOME SONGS TO GET JAMMING!\n";
+        return out;
+    }
+    //\xE2\x99\xAA is the hexidecimal escape sequence for music icon, found this on google 
+   // out << "\xE2\x99\xAA";
+    // "\033[32m" is for turning text output green
+    //turning text back to normal color "\033[0m"
+    int num = 1;
     for (int i = 0; i < printPlaylist.size; i++)
     {
-        out << printPlaylist.playlist[i] << " "; //prints out each song in playlist
-        
+        out << " Track#" << num << "\033[32m"<< " \xE2\x99\xAB" <<"\033[0m"<<"\033[35m"<<printPlaylist.playlist[i] <<"\033[0m"<< "\033[32m" << "\xE2\x99\xAB" << "\033[0m"; //prints out each song in playlist
+        num++;
     }
-    out << ")";
-    
+
     return out;
 }
 
 
 void MusicPlaylist::doubleCapacity()
 {
-    int newCapacity = capacity * 2; 
-    
+    int newCapacity = capacity * 2;
+
     std::string* temp; //will point to the address of the new doubled array list
     temp = new std::string[newCapacity];
-    
+
     for (int i = 0; i < size; i++)
     {
         temp[i] = playlist[i]; //copy elements to the doubled array list
     }
-    
+
     delete[] playlist; //deletes the initial array list
-    
+
     playlist = temp; //playlist now points to the address of the new doubled array list
     capacity = newCapacity;
-    
+
 }
+
