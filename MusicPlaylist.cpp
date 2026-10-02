@@ -135,6 +135,7 @@ std::string MusicPlaylist::get(int idx) const
         //checking index bounds
     if (idx >= 0 && idx < size)
     {
+        std::cout << "-";
     return playlist[idx];
     }else
     {
@@ -226,13 +227,19 @@ void MusicPlaylist::remove(int idx)
 
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
-    out << "( ";
+    out << "( -";
     for (int i = 0; i < printPlaylist.size; i++)
     {
-        out << printPlaylist.playlist[i] << " "; //prints out each song in playlist
+        out << printPlaylist.playlist[i]; //prints out each song in playlist
+        if (i != printPlaylist.size - 1) {
+            out << ", -"; //adds comma and space
+        }
         
     }
-    out << ")";
+    if (printPlaylist.size == 0) {
+        out << "Empty-";
+    }
+    out << " )" << std::endl;
     
     return out;
 }
