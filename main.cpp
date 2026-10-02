@@ -71,7 +71,7 @@ int main()
     cout << "Third song in METAL PLAYLIST: "<<metal.get(2)<<"\n";
     cout<< "10th song in METAL PLAYLIST: " << metal.get(9) << "\n\n";
     
-    cout << "-------------isEmpty, isEmpty,clear, and copy constructor test---------------\n";
+    cout << "-------------isEmpty, isEmpty,clear, copy constructor test, and overloaded assignment operator---------------\n";
     cout <<"\nMETAL PLAYLIST: \n" << metal<<"\n";
     cout << "METAL PLAYLIST SIZE:"<< metal.getSize() << endl << endl;
     cout << "Use the isEmpty function to see if METAL PLAYLIST is empty\n";
@@ -119,7 +119,7 @@ int main()
     cout << "PERSONAL PALYLIST: " << personal << endl << endl;
     
     
-    return 0;
+    
     
     
     
