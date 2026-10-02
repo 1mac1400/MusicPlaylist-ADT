@@ -13,34 +13,37 @@
  Resources/AI Tools used:
  */
 
-
 #ifndef MUSICPLAYLIST_H
 #define MUSICPLAYLIST_H
 #include <iostream>
+#include<string>
+
+using namespace std;
 
 class MusicPlaylist
 {
-    public:
-    
+public:
+
     MusicPlaylist(); //constructor
     MusicPlaylist(const MusicPlaylist& otherMusicPlaylist); //copy constructor
     MusicPlaylist& operator=(const MusicPlaylist& otherMusicPlaylist); //overloaded assignment operator
     MusicPlaylist(MusicPlaylist&& otherMusicPlaylist); //move constructor
     MusicPlaylist& operator=(MusicPlaylist&& otherMusicPlaylist); //move assignemnt operator
-    
+
     ~MusicPlaylist(); //destructor
-    
-    
+
+
     friend std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist); //overloaded isnertion operator
-    
-    
+
+
     void append(const std::string& song);
 
     void insert(const std::string& song, int idx);
 
-    void remove(const std::string& song, int idx);
+    void remove(int idx);
 
     string get(int idx) const;
+
     void set(const std::string& song, int idx);
 
     int getSize() const;
@@ -48,15 +51,14 @@ class MusicPlaylist
 
     void clear();
 
-    
-    
-    private:
+
+private:
     std::string* playlist; //points to the dynamically allocated array
     int capacity; //How many elements the array can currently hold
     int size; //total # of elements stored
-    
+
     void doubleCapacity(); //HELPER FUNCTION (doubles the capacity whenever array is full)
 };
+#endif
 
-
-#endif /* MusicPlaylist_h */
+/* MusicPlaylist_h */
