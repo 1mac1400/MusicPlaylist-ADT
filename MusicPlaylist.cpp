@@ -138,8 +138,7 @@ std::string MusicPlaylist::get(int idx) const
     return playlist[idx];
     }else
     {
-        std::cout << "ERROR: Invalid Index \n\n";
-        exit(1);
+        return "ERROR: Invalid Index";
     }
 }
 
@@ -167,7 +166,6 @@ void MusicPlaylist::set(const std::string& song, int idx)
     }else
     {
         std::cout << "ERROR: Invalid Index \n\n";
-        exit(1);
     }
 }
 
@@ -217,7 +215,7 @@ void MusicPlaylist::remove(int idx)
         }
     }
     else {
-        std::cout << "ERROR: Invalid Index \n\n";
+        std::cout << "ERROR: Invalid Index\n";
         return;
     }
     size--;
@@ -226,10 +224,15 @@ void MusicPlaylist::remove(int idx)
 
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
-    out << "( ";
+    out << "(";
     for (int i = 0; i < printPlaylist.size; i++)
     {
-        out << printPlaylist.playlist[i] << " "; //prints out each song in playlist
+        out << printPlaylist.playlist[i]; //prints out each song in playlist
+        
+        if (i < printPlaylist.size - 1)
+        {
+            out << ", ";
+        }
         
     }
     out << ")";
