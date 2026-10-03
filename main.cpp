@@ -75,6 +75,13 @@ int main()
 	metal.append("Ace of Spades");
 	metal.append("War Pigs");
 	cout << "\nMETAL PLAYLIST : \n" << metal << "\n\n";
+	cout << "INSERTING 'War Cactus' at the start of playlist.\n";
+	metal.insert("War Cactus", 0);
+	cout << "INSERTING 'Train' at the end of playlist.\n";
+	metal.insert("Train", metal.getSize());
+	cout << "INSERTING 'Catdog' at the middle of playlist.\n";
+	metal.insert("Catdog",metal.getSize()/2);
+	cout << "\nMETAL PLAYLIST : \n" << metal << "\n\n";
 
 	MusicPlaylist cyber(metal);
 
