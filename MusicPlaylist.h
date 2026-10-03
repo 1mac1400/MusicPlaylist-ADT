@@ -55,7 +55,7 @@ class MusicPlaylist
     int capacity; //How many elements the array can currently hold
     int size; //total # of elements stored
     
-    bool doubleCapacity(); //HELPER FUNCTION (doubles the capacity whenever array is full)
+    void doubleCapacity(); //HELPER FUNCTION (doubles the capacity whenever array is full)
 };
 
 
