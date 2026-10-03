@@ -128,6 +128,11 @@ void MusicPlaylist::append(const std::string& song)
  if(size==capacity)
  {
   doubleCapacity();
+
+  if (size == capacity)
+  {
+      return;//checks to see if allocation failed in doubleCapacity.
+  }
  }
  playlist[size]=song;
  size++;
@@ -183,6 +188,11 @@ void MusicPlaylist::insert(const std::string& song, int idx)
         if (size == capacity)
         {
             doubleCapacity();
+            if (size == capacity)//checks to see if allocation failed in doubleCapacity.
+            {
+                return;
+            }
+            
         }
         //shift elements to the right but start at last element to make sure
         //the elements get copied in the correct order without overriding a value before it was shifted
@@ -245,7 +255,7 @@ std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 }
 
 
-bool MusicPlaylist::doubleCapacity()
+void MusicPlaylist::doubleCapacity()
 {
     int newCapacity = capacity * 2;
     
@@ -260,7 +270,7 @@ bool MusicPlaylist::doubleCapacity()
     if (temp == nullptr)
     {
         std::cout << "ERROR: Memory Allocation Failed In doubleCapacity\n\n";
-        return false;
+        return;
     }
     
     for (int i = 0; i < size; i++)
@@ -272,6 +282,4 @@ bool MusicPlaylist::doubleCapacity()
     
     playlist = temp; //playlist now points to the address of the new doubled array list
     capacity = newCapacity;
-    
-    return true;
 }
