@@ -1,15 +1,13 @@
 /*
- -
- -
- -
- -
+ Muhammad Jafri
+ Lauriano Zamora
+ Brandon Morgado De La Rosa
  CMPR 131 - FALL 2026
  October 4 2026
  
  Group Project #1
  
- Collaborations:None
- 
+ Collaborations: Muhammad Jafri, Lauriano Zamora, Brandon Morgado De La Rosa
  Resources/AI Tools used:
  */
 
@@ -57,7 +55,7 @@ class MusicPlaylist
     int capacity; //How many elements the array can currently hold
     int size; //total # of elements stored
     
-    void doubleCapacity(); //HELPER FUNCTION (doubles the capacity whenever array is full)
+    bool doubleCapacity(); //HELPER FUNCTION (doubles the capacity whenever array is full)
 };
 
 
