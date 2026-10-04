@@ -240,7 +240,7 @@ void MusicPlaylist::remove(int idx)
 
 std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
 {
-    out << "(";
+    out << "( ";
     for (int i = 0; i < printPlaylist.size; i++)
     {
         out << printPlaylist.playlist[i]; //prints out each song in playlist
