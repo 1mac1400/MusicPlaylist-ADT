@@ -1,16 +1,16 @@
 /*
- -
- -
- -
- -
+ Muhammad Jafri
+ Lauriano Zamora
+ Brandon Morgado De La Rosa
  CMPR 131 - FALL 2026
  October 4 2026
  
  Group Project #1
  
- Collaborations:None
- 
- Resources/AI Tools used:
+ Collaborations: Muhammad Jafri, Lauriano Zamora, Brandon Morgado De La Rosa
+ Resources/AI Tools used: Claude help in identifying some of the edge cases we glanced over at first also some minor logic and error fixes in some of the functions like doubleCapacity and copy constructor. Gemini was also used for the special character ♫ printing code
+     Used C++ Programming, Program Design Including Data Structures" by D.S Malik as a reference for the remove and insert functions
+        
  */
 
 

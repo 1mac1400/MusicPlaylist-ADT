@@ -1,16 +1,16 @@
 /*
- -
- -
- -
- -
+ Muhammad Jafri
+ Lauriano Zamora
+ Brandon Morgado De La Rosa
  CMPR 131 - FALL 2026
  October 4 2026
  
  Group Project #1
  
- Collaborations:None
- 
- Resources/AI Tools used:
+ Collaborations: Muhammad Jafri, Lauriano Zamora, Brandon Morgado De La Rosa
+ Resources/AI Tools used: Claude help in identifying some of the edge cases we glanced over at first also some minor logic and error fixes in some of the functions like doubleCapacity and copy constructor. Gemini was also used for the special character ♫ printing code
+     Used C++ Programming, Program Design Including Data Structures" by D.S Malik as a reference for the remove and insert functions
+        
  */
 
 #include "MusicPlaylist.h"
@@ -20,30 +20,36 @@ MusicPlaylist::MusicPlaylist()
 {
     capacity = 10; //default number of spaces avaliable
     size = 0;
-    playlist = new std::string[capacity];
+    playlist = new (std::nothrow) std::string[capacity];
     
     if (playlist == nullptr)
     {
         std::cout << "ERROR: Memory Allocation Failed In Constructor\n\n";
-        exit(1);
+        size = 0;
+        capacity = 0;
+        return;
     }
 }
 
 
 MusicPlaylist::MusicPlaylist(const MusicPlaylist& otherMusicPlaylist)
 {
-    capacity = otherMusicPlaylist.capacity;
-    size = otherMusicPlaylist.size;
+
     
-    playlist = new std::string[capacity];
+    playlist = new (std::nothrow) std::string[otherMusicPlaylist.capacity];
     
     if (playlist == nullptr)
     {
         std::cout << "ERROR: Memory Allocation Failed In copy constructor\n\n";
-        exit(1);
+        size = 0;
+        capacity = 0;
+        return;
     }
     
-    for (int i = 0; i < capacity; i++)
+    capacity = otherMusicPlaylist.capacity;
+    size = otherMusicPlaylist.size;
+    
+    for (int i = 0; i < size; i++)
     {
         playlist[i] = otherMusicPlaylist.playlist[i]; //assigns elements to the new playlist
     }
@@ -60,18 +66,18 @@ MusicPlaylist& MusicPlaylist::operator=(const MusicPlaylist& otherMusicPlaylist)
     
     delete[] playlist;
     
-    size = otherMusicPlaylist.size;
-    capacity = otherMusicPlaylist.capacity;
-    
-    playlist = new std::string[capacity];
+    playlist = new (std::nothrow) std::string[otherMusicPlaylist.capacity];
     
     if (playlist == nullptr)
     {
         std::cout << "ERROR: Memory Allocation Failed In overloaded assignment operator\n\n";
-        exit(1);
+        return *this;
     }
     
-    for (int i = 0; i < capacity; i++)
+    size = otherMusicPlaylist.size;
+    capacity = otherMusicPlaylist.capacity;
+    
+    for (int i = 0; i < size; i++)
     {
         playlist[i] = otherMusicPlaylist.playlist[i]; //assigns elements to the new playlist
     }
@@ -124,6 +130,11 @@ void MusicPlaylist::append(const std::string& song)
  if(size==capacity)
  {
   doubleCapacity();
+
+  if (size == capacity)//checks to see if allocation failed in doubleCapacity.
+  {
+      return;
+  }
  }
  playlist[size]=song;
  size++;
@@ -138,8 +149,7 @@ std::string MusicPlaylist::get(int idx) const
     return playlist[idx];
     }else
     {
-        std::cout << "ERROR: Invalid Index \n\n";
-        exit(1);
+        return "ERROR: Invalid Index";
     }
 }
 
@@ -167,7 +177,6 @@ void MusicPlaylist::set(const std::string& song, int idx)
     }else
     {
         std::cout << "ERROR: Invalid Index \n\n";
-        exit(1);
     }
 }
 
@@ -181,6 +190,11 @@ void MusicPlaylist::insert(const std::string& song, int idx)
         if (size == capacity)
         {
             doubleCapacity();
+            if (size == capacity)//checks to see if allocation failed in doubleCapacity.
+            {
+                return;
+            }
+            
         }
         //shift elements to the right but start at last element to make sure
         //the elements get copied in the correct order without overriding a value before it was shifted
@@ -217,7 +231,7 @@ void MusicPlaylist::remove(int idx)
         }
     }
     else {
-        std::cout << "ERROR: Invalid Index \n\n";
+        std::cout << "ERROR: Invalid Index\n";
         return;
     }
     size--;
@@ -229,7 +243,12 @@ std::ostream& operator<<(std::ostream& out, const MusicPlaylist& printPlaylist)
     out << "( ";
     for (int i = 0; i < printPlaylist.size; i++)
     {
-        out << printPlaylist.playlist[i] << " "; //prints out each song in playlist
+        out << printPlaylist.playlist[i]; //prints out each song in playlist
+        
+        if (i < printPlaylist.size - 1)
+        {
+            out << ", ";
+        }
         
     }
     out << ")";
@@ -242,8 +261,19 @@ void MusicPlaylist::doubleCapacity()
 {
     int newCapacity = capacity * 2;
     
+    if (newCapacity == 0) //accounts for the capacity if it is 0
+    {
+        newCapacity = 1;
+    }
+    
     std::string* temp; //will point to the address of the new doubled array list
-    temp = new std::string[newCapacity];
+    temp = new (std::nothrow) std::string[newCapacity];
+    
+    if (temp == nullptr)
+    {
+        std::cout << "ERROR: Memory Allocation Failed In doubleCapacity\n\n";
+        return;
+    }
     
     for (int i = 0; i < size; i++)
     {
@@ -254,5 +284,4 @@ void MusicPlaylist::doubleCapacity()
     
     playlist = temp; //playlist now points to the address of the new doubled array list
     capacity = newCapacity;
-    
 }
