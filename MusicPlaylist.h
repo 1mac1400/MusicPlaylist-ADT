@@ -2,6 +2,7 @@
  Muhammad Jafri
  Lauriano Zamora
  Brandon Morgado De La Rosa
+ Jacob Pinedo
  CMPR 131 - FALL 2026
  October 4 2026
  
