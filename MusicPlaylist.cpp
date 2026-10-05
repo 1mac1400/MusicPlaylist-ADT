@@ -7,7 +7,7 @@
  
  Group Project #1
  
- Collaborations: Muhammad Jafri, Lauriano Zamora, Brandon Morgado De La Rosa
+ Collaborations: Muhammad Jafri, Lauriano Zamora, Brandon Morgado De La Rosa, Jacob Pinedo
  Resources/AI Tools used: Claude help in identifying some of the edge cases we glanced over at first and some logic errors in our edge cases. Help with some of the logic and error fixes in some of the functions like doubleCapacity and copy constructor. Gemini was also used for the special character ♫  code printing.
      Used C++ Programming, Program Design Including Data Structures" by D.S Malik as a reference for the remove and insert functions
         
@@ -125,8 +125,10 @@ MusicPlaylist::~MusicPlaylist()
     
 }
 
+//appends/adds a song to the end of the playlist
 void MusicPlaylist::append(const std::string& song)
 {
+ //check if re-sizing is needed
  if(size==capacity)
  {
   doubleCapacity();
@@ -136,11 +138,12 @@ void MusicPlaylist::append(const std::string& song)
       return;
   }
  }
+ //updating the list with the new song at the end and increasing size by 1
  playlist[size]=song;
  size++;
 }
 
-
+//returns a song at specified index 'idx'
 std::string MusicPlaylist::get(int idx) const
 {
         //checking index bounds
@@ -153,26 +156,33 @@ std::string MusicPlaylist::get(int idx) const
     }
 }
 
+//returns size of playlist
 int MusicPlaylist::getSize() const
 {
     return size;
 }
-
+//returns bool value depending on state of list, if its empty or not
+//by checking if size==0
 bool MusicPlaylist::isEmpty() const
 {
     return size==0;
 }
 
+//clears the playlist by setting size to 0
+//making the songs not accessible any longer
+//based on the index check in the rest of the functions
 void MusicPlaylist::clear()
 {
     size=0;
 }
 
+//updates a song at a specified index 'idx'
 void MusicPlaylist::set(const std::string& song, int idx)
 {
         //checking index bounds
     if (idx >= 0 && idx < size)
     {
+     //song gets updated at index 'idx'
     playlist[idx]=song;
     }else
     {
@@ -180,10 +190,14 @@ void MusicPlaylist::set(const std::string& song, int idx)
     }
 }
 
-
+//inserts a song at a specified index 'idx'
 void MusicPlaylist::insert(const std::string& song, int idx)
 {
-    //checking index bounds
+    //checking index bounds. Note the range of a valid index does include up idx==size
+    //because we can add a new song on the first space after the current last song. This
+   //would not break the array based structure as the memory would still be in one contigious block of memory.
+   //However, you wouldn't be able to insert at say index 'size+1' because that would break the contigious block of memory
+   //structure of an array
     if (idx >= 0 && idx <= size)
     {
         //resize the array if needed
@@ -202,7 +216,7 @@ void MusicPlaylist::insert(const std::string& song, int idx)
         {
             playlist[i] = playlist[i-1];
         }
-        //inserting value at correct index
+        //inserting song at correct index
         playlist[idx] = song;
     }
     else {
@@ -212,7 +226,7 @@ void MusicPlaylist::insert(const std::string& song, int idx)
     size++;
 }
 
-
+//removes a song at a specified index 'idx'
 void MusicPlaylist::remove(int idx)
 {
     //checking index bounds
