@@ -2,13 +2,15 @@
  Muhammad Jafri
  Lauriano Zamora
  Brandon Morgado De La Rosa
+ Jacob Pinedo
  CMPR 131 - FALL 2026
  October 4 2026
  
  Group Project #1
  
- Resources/AI Tools used: Claude help in identifying some of the edge cases we glanced over at first and some logic errors in our edge cases. Help with some of the logic and error fixes in some of the functions like doubleCapacity and copy constructor. Gemini was also used for the special character ♫  code printing.
-     Used C++ Programming, Program Design Including Data Structures" by D.S Malik as a reference for the remove and insert functions
+ Resources/AI Tools used: Claude help in identifying some of the edge cases we glanced over at first and some logic errors in our edge cases. Help with some of the logic and 
+ error fixes in some of the functions like doubleCapacity and copy constructor. 
+ Used C++ Programming, Program Design Including Data Structures" by D.S Malik as a reference for the remove and insert functions
  */
 
 #include "MusicPlaylist.h"
@@ -16,24 +18,8 @@
 
 using namespace std;
 
-//this block is so that we can safely print the music symbol ♫ without causing a compilation failure if someone runs the code in a non-windows system like macOS or Linux
-//the WIN32_LEAN_AND_MEAN is used to avoid an error where 'byte' is data type name in STD library but 'byte' is also a type inside windows.h
-//which causes compiler to be confused which 'byte' are we referring to. Thus, this command tells the compiler to strip its old "byte" data type from windows.h
-// and avoid the compiler confusion
-//windows.h is need so that the output console command can work below
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-
 int main()
 {
-    //this is safety feature if running windows then symbol will be correct music symbol
-    //if this program is run on Linux or MacOS then this line of code won't run and its not needed
-    //because per Google, the Linux & macOS terminals use UTF-8 encoding by default
-#ifdef _WIN32
-    SetConsoleOutputCP(65001);
-#endif
     
     cout << "-------------Default Constructor test---------------\n\nCreate a METAL PLAYLIST using the default constructor then print\nMETAL PLAYLIST:  ";
     MusicPlaylist metal;
