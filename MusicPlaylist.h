@@ -8,10 +8,9 @@
  
  Group Project #1
  
- Collaborations: Muhammad Jafri, Lauriano Zamora, Brandon Morgado De La Rosa
- Resources/AI Tools used: Claude help in identifying some of the edge cases we glanced over at first and some logic errors in our edge cases. Help with some of the logic and error fixes in some of the functions like doubleCapacity and copy constructor. Gemini was also used for the special character ♫  code printing.
-     Used C++ Programming, Program Design Including Data Structures" by D.S Malik as a reference for the remove and insert functions
-        
+ Resources/AI Tools used: Claude help in identifying some of the edge cases we glanced over at first and some logic errors in our edge cases. Help with some of the logic and 
+ error fixes in some of the functions like doubleCapacity and copy constructor. 
+ Used C++ Programming, Program Design Including Data Structures" by D.S Malik as a reference for the remove and insert functions
  */
 
 
